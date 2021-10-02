@@ -20,11 +20,11 @@ Modules
 - Transaction
   - Transfer money
   - Deposit money
-  - Pay for service
+  - Get list of all transfer of card
 - Merchant
   - Pay for goods
-  - Transfer Money
   - Check card information
+  - Get list of pays of goods
   
 
 
