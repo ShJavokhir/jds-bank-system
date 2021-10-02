@@ -33,19 +33,15 @@ jobs:
     
     # Check for any formatting issues in the code.
     - working-directory: ./mobile_app .  
-      run: flutter format --set-exit-if-changed .
+      run: flutter format --set-exit-if-changed ./mobile_app
     
     # Statically analyze the Dart code for any errors.
     - working-directory: ./mobile_app .  
-      run: flutter analyze .
-    
-    # Run widget tests for our flutter project.
-    - working-directory: ./mobile_app .  
-      run: flutter test
+      run: flutter analyze ./mobile_app
     
     # Build apk.
     - working-directory: ./mobile_app .  
-      run: flutter build apk
+      run: flutter build apk ./mobile_app
     
     # Upload generated apk to the artifacts.
     - uses: actions/upload-artifact@v1
