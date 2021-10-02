@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { CardModule } from './card/card.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GeneratorModule } from './generator/generator.module';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { GeneratorModule } from './generator/generator.module';
       synchronize: true,
     }),
     GeneratorModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

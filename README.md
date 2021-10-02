@@ -10,8 +10,17 @@ Use Cases
 - Storing transactions
 
 Modules
-- Cards
+- Card
+  - Create card
+  - Get balance
+  - Get cashback
+  - Get balance
+  - Activate card
+  - Deactivate card
+- Transaction
+  - Transfer money
+  - Deposit money
+  - Pay for service
 - Communication
-- Payment
 - Comissions
 - Cashbacks

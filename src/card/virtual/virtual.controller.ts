@@ -23,13 +23,13 @@ export class VirtualController {
   }
 
   @Get('getBalance')
-  getVirtualCardBalance(): any {
-    return 'Card balance';
+  getVirtualCardBalance(@Body() visaCard: VisaCardDto): any {
+    return this.virtualCardService.getBalance(visaCard);
   }
 
   @Get('getCashback')
-  getVirtualCardCashback(): any {
-    return 'Card cashback';
+  getVirtualCardCashback(@Body() visaCard: VisaCardDto): any {
+    return this.virtualCardService.getCashback(visaCard);
   }
 
   @Post('depositMoney')

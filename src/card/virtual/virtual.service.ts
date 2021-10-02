@@ -35,4 +35,18 @@ export class VirtualService {
     visaCardInDatabase.isActive = true;
     return await this.visaCardRepository.save(visaCardInDatabase);
   }
+
+  async getBalance(visaCard: VisaCardDto): Promise<any>{
+    let visaCardInDatabase = await this.visaCardRepository.findOne(visaCard);
+    return {
+      'balance': visaCardInDatabase.balance
+    }
+  }
+
+  async getCashback(visaCard: VisaCardDto): Promise<any>{
+    let visaCardInDatabase = await this.visaCardRepository.findOne(visaCard);
+    return {
+      'cashBack': visaCardInDatabase.cashBack
+    }
+  }
 }
