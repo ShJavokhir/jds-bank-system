@@ -28,8 +28,8 @@ jobs:
         # flutter-version: '1.12.x' # you can also specify exact version of flutter
     
     # Get flutter dependencies.
-    - working-directory: mobile_app/ .  
-      run: flutter pub get .
+    - working-directory: mobile_app/  
+      run: flutter pub get ./mobile_app
     
     # Check for any formatting issues in the code.
     - working-directory: ./mobile_app .  
