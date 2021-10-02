@@ -21,6 +21,13 @@ Modules
   - Transfer money
   - Deposit money
   - Pay for service
+- Merchant
+  - Pay for goods
+  - Transfer Money
+  - Check card information
+  
+
+
 - Communication
 - Comissions
 - Cashbacks

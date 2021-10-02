@@ -5,6 +5,7 @@ import { CardModule } from './card/card.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GeneratorModule } from './generator/generator.module';
 import { TransactionModule } from './transaction/transaction.module';
+import { MerchantModule } from './merchant/merchant.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { TransactionModule } from './transaction/transaction.module';
     }),
     GeneratorModule,
     TransactionModule,
+    MerchantModule,
   ],
   controllers: [AppController],
   providers: [AppService],
