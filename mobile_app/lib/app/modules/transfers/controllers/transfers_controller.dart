@@ -17,9 +17,14 @@ class TransfersController extends GetxController {
     MoneyTransferCard(cardNumber: "8600 **** **** 1293", amount: 100),
     MoneyTransferCard(cardNumber: "8600 **** **** 1293", amount: -244),
     MoneyTransferCard(cardNumber: "8600 **** **** 1293", amount: -100),
-
-
   ];
+
+  var tempReceiverCardNumber = ''.obs;
+  var tempAmountToSent = 0.obs;
+
+  Future<void> transferMoney()async{
+    print('$tempReceiverCardNumber $tempAmountToSent');
+  }
 
   final count = 0.obs;
   @override
