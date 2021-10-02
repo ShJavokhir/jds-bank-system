@@ -19,4 +19,10 @@ export class VisaCard {
 
   @Column()
   balance: number;
+
+  @Column()
+  cashBack: number;
+
+  @Column()
+  isActive: boolean;
 }

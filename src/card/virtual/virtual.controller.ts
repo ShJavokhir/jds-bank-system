@@ -1,20 +1,25 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from "@nestjs/common";
+import { VirtualService } from "./virtual.service";
+import { VisaCardDto } from "../dto/visa.card.dto";
 
 @Controller('card/virtual')
 export class VirtualController {
+  constructor(private virtualCardService: VirtualService ) {
+  }
+
   @Post('create')
   createVirtualCard(): any {
-    return 'Created virtual card';
+    return this.virtualCardService.createVirtualVisaCard();
   }
 
   @Post('deactivate')
-  deactivateVirtualCard(): any {
-    return 'Virtual card deactivated';
+  deactivateVirtualCard(@Body() visaCard: VisaCardDto): any {
+    return this.virtualCardService.deactivateCard(visaCard);
   }
 
   @Post('activate')
-  activateVirtualCard(): any {
-    return 'Virtual card activated';
+  activateVirtualVisaCard(@Body() visaCard: VisaCardDto): any {
+    return this.virtualCardService.activateCard(visaCard);
   }
 
   @Get('getBalance')
