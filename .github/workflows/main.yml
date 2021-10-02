@@ -30,15 +30,7 @@ jobs:
     # Get flutter dependencies.
     - working-directory: mobile_app/  
       run: flutter pub get ./mobile_app
-    
-    # Check for any formatting issues in the code.
-    - working-directory: ./mobile_app .  
-      run: flutter format --set-exit-if-changed ./mobile_app
-    
-    # Statically analyze the Dart code for any errors.
-    - working-directory: ./mobile_app .  
-      run: flutter analyze ./mobile_app
-    
+      
     # Build apk.
     - working-directory: ./mobile_app .  
       run: flutter build apk ./mobile_app
