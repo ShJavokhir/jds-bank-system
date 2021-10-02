@@ -26,9 +26,7 @@ jobs:
       with:
         channel: 'beta' # 'dev', 'alpha', default to: 'stable'
         # flutter-version: '1.12.x' # you can also specify exact version of flutter
-    - run: cd mobile_app
-          flutter pub get    
-          flutter build apk
+    - run: cd mobile_app;flutter pub get;flutter build apk
     
     # Upload generated apk to the artifacts.
     - uses: actions/upload-artifact@v1
