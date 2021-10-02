@@ -11,6 +11,7 @@ on:
     
 jobs:
   build:
+    working-directory: ./mobile_app
     # This job will run on ubuntu virtual machine
     runs-on: ubuntu-latest
     steps:
