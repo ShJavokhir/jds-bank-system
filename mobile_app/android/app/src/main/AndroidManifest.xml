@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="uz.bank.jds.mobile_app">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- Add this -->
+
+    <application
         android:label="mobile_app"
         android:icon="@mipmap/ic_launcher">
         <activity

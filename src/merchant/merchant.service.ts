@@ -7,6 +7,7 @@ import { VisaCard } from "../card/card.entity";
 import { VisaCardDto } from "../card/dto/visa.card.dto";
 import { MoneyTransfer } from "../transaction/money.transfers.entity";
 
+const MERCHANT_COMISSION = 2; //2% comission
 @Injectable()
 export class MerchantService {
   constructor(@InjectRepository(MerchantPayments)
@@ -37,6 +38,7 @@ export class MerchantService {
     merchantPayments.cardNumber = payForGoodsDto.cardNumber;
     merchantPayments.goodsAccountNumber = payForGoodsDto.goodsAccountNumber;
     merchantPayments.goodsName = payForGoodsDto.goodsName;
+    merchantPayments.merchantsComission = payForGoodsDto.amount*MERCHANT_COMISSION/100
     return await this.merchantPaymentsRepository.save(merchantPayments);
   }
 
