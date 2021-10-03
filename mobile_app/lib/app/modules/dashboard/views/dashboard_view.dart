@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobile_app/app/data/colors.dart';
 import 'package:mobile_app/app/modules/dashboard/controllers/dashboard_controller.dart';
+import 'package:mobile_app/app/modules/home/controllers/home_controller.dart';
 import 'package:mobile_app/app/modules/home/views/home_view.dart';
 import 'package:mobile_app/app/modules/payments/views/payments_view.dart';
 import 'package:mobile_app/app/modules/transfers/views/transfers_view.dart';
@@ -10,6 +11,8 @@ import 'package:mobile_app/app/modules/transfers/views/transfers_view.dart';
 class DashboardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Get.put<HomeController>(HomeController(), permanent: true);
+
     return GetBuilder<DashboardController>(
       builder: (controller) {
         return Container(

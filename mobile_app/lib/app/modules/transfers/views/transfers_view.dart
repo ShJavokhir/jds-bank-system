@@ -28,23 +28,25 @@ class TransfersView extends GetView<TransfersController> {
               tileMode: TileMode.clamp),
         ),
         child: SafeArea(
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: [
-              SizedBox(height: 50,),
+          child: Obx(
+              ()=> ListView(
+              physics: AlwaysScrollableScrollPhysics(),
+              children: [
+                SizedBox(height: 50,),
 
-              Text(
-                  "Card Transfers",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 30,
-                      fontFamily: "Poppins",
-                      fontWeight: FontWeight.w600
-                  )
-              ),
-              SizedBox(height: 35),
-              ...controller.transfers,
-            ],
+                Text(
+                    "Card Transfers",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 30,
+                        fontFamily: "Poppins",
+                        fontWeight: FontWeight.w600
+                    )
+                ),
+                SizedBox(height: 35),
+                ...controller.transfers,
+              ],
+            ),
           ),
         ),
       )

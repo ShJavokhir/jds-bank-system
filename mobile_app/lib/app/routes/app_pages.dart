@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import 'package:mobile_app/app/modules/auth/bindings/auth_binding.dart';
+import 'package:mobile_app/app/modules/auth/views/auth_view.dart';
 import 'package:mobile_app/app/modules/dashboard/bindings/dashboard_binding.dart';
 import 'package:mobile_app/app/modules/dashboard/views/dashboard_view.dart';
 import 'package:mobile_app/app/modules/home/bindings/home_binding.dart';
@@ -14,7 +16,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.DASHBOARD;
+  static const INITIAL = Routes.AUTH;
 
   static final routes = [
     GetPage(
@@ -36,6 +38,11 @@ class AppPages {
       name: _Paths.PAYMENTS,
       page: () => PaymentsView(),
       binding: PaymentsBinding(),
+    ),
+    GetPage(
+      name: _Paths.AUTH,
+      page: () => AuthView(),
+      binding: AuthBinding(),
     ),
   ];
 }

@@ -8,7 +8,7 @@ import 'package:mobile_app/app/data/colors.dart';
  */
 class PaymentsCardView extends StatelessWidget {
   final String serviceName;
-  final double amount;
+  final num amount;
   final IconData icon;
   const PaymentsCardView({required this.serviceName, required this.amount, required this.icon});
 

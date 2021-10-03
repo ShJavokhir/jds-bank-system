@@ -9,7 +9,7 @@ import 'package:mobile_app/app/data/colors.dart';
 
 class MoneyTransferCard extends StatelessWidget {
   final String cardNumber;
-  final double amount;
+  final num amount;
   const MoneyTransferCard({required this.cardNumber, required this.amount});
 
   @override

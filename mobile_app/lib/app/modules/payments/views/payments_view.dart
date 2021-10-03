@@ -28,7 +28,7 @@ class PaymentsView extends GetView<PaymentsController> {
         ),
         child: SafeArea(
           child: ListView(
-          physics: BouncingScrollPhysics(),
+          physics: AlwaysScrollableScrollPhysics(),
               children: [
                 SizedBox(height: 50,),
                 Text(
