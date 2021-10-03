@@ -102,7 +102,6 @@ class TransfersController extends GetxController {
     }
   }
     Future<void> makePayment() async {
-      Response<T> response
       try {
         print('$tempReceiverCardNumber $tempAmountToSent');
         final dio = new Dio();

@@ -30,7 +30,7 @@ class AuthView extends GetView<AuthController> {
             children: [
               SizedBox(height: 50,),
               Text(
-                  "Auth",
+                  "JDS BANKING",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
