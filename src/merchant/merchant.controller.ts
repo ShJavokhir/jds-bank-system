@@ -14,7 +14,7 @@ export class MerchantController {
     return this.merchantService.payForGoods(payForGoodsDto);
   }
 
-  @Get('getPaysForGoods')
+  @Post('getPaysForGoods')
   getPaysForGoods(@Body() visaCardDto: VisaCardDto): any {
     return this.merchantService.getPaysForGoods(visaCardDto);
   }

@@ -12,14 +12,16 @@ export class VirtualService {
     readonly visaCardRepository: Repository<VisaCard>,
     readonly generatorService: GeneratorService
   ){}
-  async createVirtualVisaCard () : Promise<any> {
+  async createVirtualVisaCard (fullName: string) : Promise<any> {
     let visaCard = new VisaCard();
     visaCard.cardExpiryDate = this.generatorService.generateVisaExpiryDate();
     visaCard.cardNumber = this.generatorService.generateVisaNumber();
     visaCard.cardCvv = this.generatorService.generateCVV();
     visaCard.isVirtual = true;
+    visaCard.isActive = true;
     visaCard.balance = 0;
     visaCard.cashBack = 0;
+    visaCard.fullName = fullName;
     await this.visaCardRepository.save(visaCard);
     return visaCard;
   }
@@ -34,6 +36,14 @@ export class VirtualService {
     let visaCardInDatabase = await this.visaCardRepository.findOne(visaCard);
     visaCardInDatabase.isActive = true;
     return await this.visaCardRepository.save(visaCardInDatabase);
+  }
+
+  async getCardInfo(visacard: VisaCardDto): Promise<any>{
+    let visaCard1 = new VisaCard();
+    visaCard1.cardNumber = visacard.cardNumber;
+    visaCard1.cardCvv = visacard.cardCvv;
+    visaCard1.cardExpiryDate = visacard.cardExpiryDate;
+    return this.visaCardRepository.findOne(visaCard1);
   }
 
   async getBalance(visaCard: VisaCardDto): Promise<any>{

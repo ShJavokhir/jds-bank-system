@@ -25,4 +25,7 @@ export class VisaCard {
 
   @Column()
   isActive: boolean;
+
+  @Column()
+  fullName: String;
 }

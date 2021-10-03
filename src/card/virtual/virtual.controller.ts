@@ -7,15 +7,22 @@ export class VirtualController {
   constructor(private virtualCardService: VirtualService ) {
   }
 
+  @Post('getCardInfo')
+  getCardInfo(@Body() visaCard: VisaCardDto) {
+    return this.virtualCardService.getCardInfo(visaCard);
+  }
+
   @Post('create')
-  createVirtualCard(): any {
-    return this.virtualCardService.createVirtualVisaCard();
+  createVirtualCard(@Body() fullName: {fullName:string}): any {
+    return this.virtualCardService.createVirtualVisaCard(fullName.fullName);
   }
 
   @Post('deactivate')
   deactivateVirtualCard(@Body() visaCard: VisaCardDto): any {
     return this.virtualCardService.deactivateCard(visaCard);
   }
+
+
 
   @Post('activate')
   activateVirtualVisaCard(@Body() visaCard: VisaCardDto): any {

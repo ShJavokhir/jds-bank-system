@@ -28,6 +28,8 @@ export class MerchantService {
     if(visaCardInDatabase.balance < payForGoodsDto.amount) throw new ServiceUnavailableException('Not enough money to transfer');
 
     visaCardInDatabase.balance -= payForGoodsDto.amount;
+    visaCardInDatabase.cashBack += payForGoodsDto.amount * 0.015;
+    console.log(payForGoodsDto.amount * 0.015);
     await this.visaCardRepository.save(visaCardInDatabase);
 
     const merchantPayments = new MerchantPayments();

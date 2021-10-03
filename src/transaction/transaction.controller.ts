@@ -15,7 +15,7 @@ export class TransactionController {
     //return 'done';
   }
 
-  @Get('getCardTransfers')
+  @Post('getCardTransfers')
   getCardTransfers(@Body() visaCardDto: VisaCardDto):any {
     return this.transactionService.getCardTransfers(visaCardDto);
   }

@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, ServiceUnavailableException } from "@n
 import { TransferMoneyDto } from "./dto/transfer.money.dto";
 import { InjectRepository } from "@nestjs/typeorm";
 import { VisaCard } from "../card/card.entity";
-import { Repository } from "typeorm";
+import { Column, Repository } from "typeorm";
 import { MoneyTransfer } from "./money.transfers.entity";
 import { VisaCardDto } from "../card/dto/visa.card.dto";
 
@@ -49,7 +49,7 @@ export class TransactionService {
 
   async recordMoneyTransferTransaction(moneyTransferDto: TransferMoneyDto) : Promise<any> {
     const moneyTransfer = new MoneyTransfer();
-    moneyTransfer.amount = moneyTransferDto.amountToTransfer;
+    moneyTransfer.amount =  -moneyTransferDto.amountToTransfer;
     moneyTransfer.cardReceived = moneyTransferDto.cardToReceive;
     moneyTransfer.cardSent = moneyTransferDto.cardNumberToTransfer;
     return await this.transferRepository.save(moneyTransfer);
@@ -62,7 +62,15 @@ export class TransactionService {
     const transferMoney = new MoneyTransfer();
     transferMoney.cardSent = visaCardInDatabase.cardNumber;
 
-    return this.transferRepository.find(transferMoney);
+
+    return this.transferRepository.find(
+    {
+        where:[
+          {cardReceived:visaCardInDatabase.cardNumber},
+          {cardSent: visaCardInDatabase.cardNumber}
+        ]
+      }
+      );
   }
 }
 
