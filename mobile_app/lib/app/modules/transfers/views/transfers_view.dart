@@ -34,14 +34,26 @@ class TransfersView extends GetView<TransfersController> {
               children: [
                 SizedBox(height: 50,),
 
-                Text(
-                    "Card Transfers",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontFamily: "Poppins",
-                        fontWeight: FontWeight.w600
-                    )
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        "Card Transfers",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.w600
+                        )
+                    ),
+
+                    GestureDetector(
+                      onTap: (){
+                        controller.transferMoneyForm();
+                      },
+                        child: Icon(Icons.add_box_rounded, color: Colors.white, size: 50,))
+                  ],
                 ),
                 SizedBox(height: 35),
                 ...controller.transfers,

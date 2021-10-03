@@ -10,7 +10,7 @@ void main()async {
   await GetStorage.init();
 
   final mySystemTheme= SystemUiOverlayStyle.light
-      .copyWith(systemNavigationBarColor: Colors.red);
+      .copyWith(systemNavigationBarColor: Colors.transparent);
   SystemChrome.setSystemUIOverlayStyle(mySystemTheme);
   //SystemUiOverlayStyle(
    //     statusBarColor: Colors.white, //or set color with: Color(0xFF0000FF)

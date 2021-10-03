@@ -36,7 +36,9 @@ class DashboardPage extends StatelessWidget {
               children: [
                 HomeView(),
                 TransfersView(),
-                PaymentsView()
+                PaymentsView(),
+                PaymentsView(),
+
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
@@ -62,9 +64,14 @@ class DashboardPage extends StatelessWidget {
                   label: 'Transfers',
                 ),
                 _bottomNavigationBarItem(
-                  icon: CupertinoIcons.bell,
+                  icon: CupertinoIcons.money_dollar_circle,
                   label: 'Payments',
                 ),
+                _bottomNavigationBarItem(
+                  icon: CupertinoIcons.cloud_download,
+                  label: 'Update',
+                ),
+
               ],
             ),
           ),

@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:get/get.dart';
 import 'package:mobile_app/app/data/colors.dart';
+import 'package:mobile_app/app/modules/payments/controllers/payments_controller.dart';
 import 'package:mobile_app/app/modules/transfers/controllers/transfers_controller.dart';
 
 import '../controllers/home_controller.dart';
@@ -336,7 +337,9 @@ class HomeView extends GetView<HomeController> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           GestureDetector(
-            onTap: transferMoney,
+            onTap: (){
+              Get.find<TransfersController>().transferMoneyForm();
+            },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               width: size.width/2 - 45,
@@ -372,7 +375,9 @@ class HomeView extends GetView<HomeController> {
           ),
           SizedBox(width: 10,),
           GestureDetector(
-            onTap: payForService,
+            onTap: (){
+              Get.find<PaymentsController>().payForServiceForm();
+            },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               width: size.width/2 - 45,
@@ -408,138 +413,6 @@ class HomeView extends GetView<HomeController> {
       ),
     );
 
-  }
-
-
-
-  void transferMoney()async{
-    TransfersController controller = Get.find();
-
-    Get.defaultDialog(
-      title: "Transfer money",
-      middleText: "Please fill every field",
-      backgroundColor: AppColors.dark_color_3,
-      titleStyle: TextStyle(color: Colors.white),
-      middleTextStyle: TextStyle(color: Colors.white),
-
-        content: Container(
-          padding: EdgeInsets.all(5),
-          child: Column(
-
-            children: [
-              TextField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: "Receiver's card number",
-                  labelStyle: TextStyle(color: Colors.blueAccent),
-                  fillColor: Colors.blueAccent,
-                  focusColor: Colors.blueAccent,
-                  hoverColor: Colors.blueAccent,
-
-                ),
-                onChanged: (txt){
-                  controller.tempReceiverCardNumber.value = txt;
-                },
-              ),
-              TextField(
-                style: TextStyle(color: Colors.white),
-
-                decoration: InputDecoration(
-                  labelText: "Amount to transfer",
-                  labelStyle: TextStyle(color: Colors.blueAccent),
-                  fillColor: Colors.blueAccent,
-                  focusColor: Colors.blueAccent,
-                  hoverColor: Colors.blueAccent,
-                ),
-                onChanged: (txt){
-                  controller.tempAmountToSent.value = int.parse(txt) ;
-                },
-              ),
-            ],
-          ),
-        ),
-        onConfirm: ()async{
-          await controller.transferMoney();
-          Get.find<HomeController>().update1();
-
-        },
-        textConfirm: "Transfer",
-        textCancel: "Cancel"
-
-
-    );
-  }
-
-  void payForService()async{
-    TransfersController controller = Get.find();
-
-    Get.defaultDialog(
-        title: "Payment",
-        middleText: "Please fill every field",
-        backgroundColor: AppColors.dark_color_3,
-        titleStyle: TextStyle(color: Colors.white),
-        middleTextStyle: TextStyle(color: Colors.white),
-
-        content: Container(
-          padding: EdgeInsets.all(5),
-          child: Column(
-
-            children: [
-              TextField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: "Payment name",
-                  labelStyle: TextStyle(color: Colors.blueAccent),
-                  fillColor: Colors.blueAccent,
-                  focusColor: Colors.blueAccent,
-                  hoverColor: Colors.blueAccent,
-                ),
-                onChanged: (txt){
-                  controller.tempPaymentName.value = txt;
-                },
-              ),
-              TextField(
-                style: TextStyle(color: Colors.white),
-                decoration: InputDecoration(
-                  labelText: "Account number",
-                  labelStyle: TextStyle(color: Colors.blueAccent),
-                  fillColor: Colors.blueAccent,
-                  focusColor: Colors.blueAccent,
-                  hoverColor: Colors.blueAccent,
-                ),
-                onChanged: (txt){
-                  controller.tempAccountNumber.value = int.parse(txt) ;
-                },
-              ),
-              TextField(
-                style: TextStyle(color: Colors.white),
-
-                decoration: InputDecoration(
-                  labelText: "Amount to transfer",
-                  labelStyle: TextStyle(color: Colors.blueAccent),
-                  fillColor: Colors.blueAccent,
-                  focusColor: Colors.blueAccent,
-                  hoverColor: Colors.blueAccent,
-                ),
-                onChanged: (txt){
-                  controller.tempAmountToSent.value = int.parse(txt) ;
-
-
-                },
-              ),
-            ],
-          ),
-        ),
-        onConfirm: ()async{
-          await controller.makePayment();
-          Get.find<HomeController>().update1();
-
-        },
-        textConfirm: "Make Payment",
-        textCancel: "Cancel"
-
-
-    );
   }
 
 

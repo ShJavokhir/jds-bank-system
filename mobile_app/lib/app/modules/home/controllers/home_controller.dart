@@ -34,6 +34,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> update1()async{
+    print('update home');
     VisaCardModel aa = await fetchData();
     print(aa.cardNumber);
     cardNumber.value = aa.cardNumber;

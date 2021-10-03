@@ -2,9 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mobile_app/app/data/colors.dart';
 import 'package:mobile_app/app/data/config.dart';
 import 'package:mobile_app/app/data/models/transfers_model.dart';
 import 'package:mobile_app/app/data/models/visa_card_model.dart';
+import 'package:mobile_app/app/modules/home/controllers/home_controller.dart';
 import 'package:mobile_app/app/widgets/card_money_transfer_card.dart';
 
 class TransfersController extends GetxController {
@@ -57,6 +59,7 @@ class TransfersController extends GetxController {
   }
 
   Future<void> updateData()async{
+    print('update transfer');
     transfers.clear();
     final transfers1 = await fetchData();
     transfers1.forEach((element) {
@@ -90,9 +93,10 @@ class TransfersController extends GetxController {
       var response = await dio.post(
           '${Config.API_URL}/transaction', data: formData);
       Navigator.of(Get.overlayContext!).pop();
+      Get.snackbar("Info", 'Succesfull transfer', colorText: Colors.white, icon: Icon(Icons.done_outline, color: Colors.white));
     } catch (e) {
       print(e);
-      Get.snackbar("Xatolik", e.toString());
+      Get.snackbar("Xatolik", e.toString(), colorText: Colors.white, icon: Icon(Icons.error, color: Colors.red));
     }
   }
     Future<void> makePayment() async {
@@ -121,9 +125,11 @@ class TransfersController extends GetxController {
         var response = await dio.post(
             '${Config.API_URL}/merchant/payForGoods', data: formData);
         Navigator.of(Get.overlayContext!).pop();
+        Get.snackbar("Info", "Sucessfully paid", colorText: Colors.white, icon: Icon(Icons.done_outline, color: Colors.white,));
+
       } catch (e) {
-        print(e);
-        Get.snackbar("Xatolik", e.toString());
+//        print(e.text);
+        Get.snackbar("Xatolik", e.toString(), colorText: Colors.white, icon: Icon(Icons.error, color: Colors.red));
       }
     }
 
@@ -143,4 +149,80 @@ class TransfersController extends GetxController {
     @override
     void onClose() {}
     void increment() => count.value++;
+
+  void transferMoneyForm()async{
+    TransfersController controller = Get.find();
+
+    Get.defaultDialog(
+        title: "Transfer money",
+        middleText: "Please fill every field",
+        backgroundColor: AppColors.dark_color_3,
+        titleStyle: TextStyle(color: Colors.white),
+        middleTextStyle: TextStyle(color: Colors.white),
+
+        content: Container(
+          padding: EdgeInsets.all(5),
+          child: Column(
+
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(10,2,10,2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.white)
+                ),
+
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    labelText: "Receiver's card number",
+                    labelStyle: TextStyle(color: Colors.blueAccent),
+                    fillColor: Colors.blueAccent,
+                    focusColor: Colors.blueAccent,
+                    hoverColor: Colors.blueAccent,
+
+                  ),
+                  onChanged: (txt){
+                    controller.tempReceiverCardNumber.value = txt;
+                  },
+                ),
+              ),
+              SizedBox(height: 10,),
+              Container(
+                padding: EdgeInsets.fromLTRB(10,2,10,2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.white)
+                ),
+
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+
+                  decoration: InputDecoration(
+                    labelText: "Amount to transfer",
+                    labelStyle: TextStyle(color: Colors.blueAccent),
+                    fillColor: Colors.blueAccent,
+                    focusColor: Colors.blueAccent,
+                    hoverColor: Colors.blueAccent,
+                  ),
+                  onChanged: (txt){
+                    controller.tempAmountToSent.value = int.parse(txt) ;
+                  },
+                ),
+              ),
+              SizedBox(height: 10,),
+            ],
+          ),
+        ),
+        onConfirm: ()async{
+          await controller.transferMoney();
+          Get.find<HomeController>().update1();
+
+        },
+        textConfirm: "Transfer",
+        textCancel: "Cancel"
+
+
+    );
+  }
   }

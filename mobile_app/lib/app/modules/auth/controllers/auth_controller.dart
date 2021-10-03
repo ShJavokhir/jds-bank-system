@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:mobile_app/app/data/config.dart';
@@ -19,32 +20,49 @@ class AuthController extends GetxController {
   late Dio dio = Dio();
 
   Future<void> createNewVisa()async{
-    dio = new Dio();
-    var formData = {
-      'fullName': '$fullName',
-    };
-    var response = await dio.post('${Config.API_URL}/card/virtual/create', data: formData);
-    final aa = VisaCardModel.fromJson(response.data);
-    final box = GetStorage();
-    box.write('cardNumber', aa.cardNumber);
-    box.write('cardCvv', aa.cardCvv);
-    box.write('cardExpiryDate', aa.cardExpiryDate);
-
+    try {
+      dio = new Dio();
+      var formData = {
+        'fullName': '$fullName',
+      };
+      var response = await dio.post(
+          '${Config.API_URL}/card/virtual/create', data: formData);
+      final aa = VisaCardModel.fromJson(response.data);
+      final box = GetStorage();
+      box.write('cardNumber', aa.cardNumber);
+      box.write('cardCvv', aa.cardCvv);
+      box.write('cardExpiryDate', aa.cardExpiryDate);
+    }catch(e){
+      Get.snackbar("Xatolik", e.toString(), colorText: Colors.white, icon: Icon(Icons.error, color: Colors.red));
+    }
     //saveToSharedPreferences
   }
 
-  void loginToVisa()async{
-    dio = new Dio();
-    var formData = {
-      'cardNumber': '$cardNumber',
-      'cardCvv': '$cardCvv',
-      'cardExpiryDate': '$cardExpiryDate',
-    };
-    var response = await dio.post('$Config.API_URL/card/virtual/validate', data: formData);
-    if(response.statusCode == 200){
-      //save sharedprefernces
+  Future<void> loginToVisa()async{
+    final dio = new Dio();
+    final box = GetStorage();
+    try {
+      var formData = await{
+        'cardNumber': cardNumber.value,
+        'cardCvv': cardCvv.value,
+        'cardExpiryDate': cardExpiryDate.value,
+      };
+      print('${Config.API_URL}/card/virtual/getCardInfo');
+      var response = await dio.post(
+          '${Config.API_URL}/card/virtual/getCardInfo', data: formData);
+      final aa = VisaCardModel.fromJson(response.data);
+      box.write('cardNumber', aa.cardNumber);
+      box.write('cardCvv', aa.cardCvv);
+      box.write('cardExpiryDate', aa.cardExpiryDate);
+
+        Get.toNamed(Routes.DASHBOARD);
+
+
+    }catch(e){
+      Get.snackbar("Xatolik", e.toString(), colorText: Colors.white, icon: Icon(Icons.error, color: Colors.red));
     }
   }
+
 
   final count = 0.obs;
   @override
@@ -60,6 +78,7 @@ class AuthController extends GetxController {
     super.onReady();
     final box = GetStorage();
     if(box.hasData('cardNumber')){
+      print("borr");
       Get.toNamed(Routes.DASHBOARD);
     }
   }

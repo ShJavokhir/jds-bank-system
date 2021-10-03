@@ -2,8 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:mobile_app/app/data/colors.dart';
 import 'package:mobile_app/app/data/config.dart';
 import 'package:mobile_app/app/data/models/goods_model.dart';
+import 'package:mobile_app/app/modules/home/controllers/home_controller.dart';
+import 'package:mobile_app/app/modules/transfers/controllers/transfers_controller.dart';
 import 'package:mobile_app/app/modules/transfers/views/payments_card_view.dart';
 
 class PaymentsController extends GetxController {
@@ -75,4 +78,102 @@ class PaymentsController extends GetxController {
   @override
   void onClose() {}
   void increment() => count.value++;
+
+  void payForServiceForm()async{
+    TransfersController controller = Get.find();
+
+    Get.defaultDialog(
+        title: "Payment",
+        middleText: "Please fill every field",
+        backgroundColor: AppColors.dark_color_3,
+        titleStyle: TextStyle(color: Colors.white),
+        middleTextStyle: TextStyle(color: Colors.white),
+
+        content: Container(
+          padding: EdgeInsets.all(5),
+          child: Column(
+
+            children: [
+              Container(
+                padding: EdgeInsets.fromLTRB(10,2,10,2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.white)
+                ),
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    labelText: "Payment name",
+                    labelStyle: TextStyle(color: Colors.blueAccent),
+                    fillColor: Colors.blueAccent,
+                    focusColor: Colors.blueAccent,
+                    hoverColor: Colors.blueAccent,
+                  ),
+                  onChanged: (txt){
+                    controller.tempPaymentName.value = txt;
+                  },
+                ),
+              ),
+              SizedBox(height: 10,),
+              Container(
+                padding: EdgeInsets.fromLTRB(10,2,10,2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.white)
+                ),
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(
+                    labelText: "Account number",
+                    labelStyle: TextStyle(color: Colors.blueAccent),
+                    fillColor: Colors.blueAccent,
+                    focusColor: Colors.blueAccent,
+                    hoverColor: Colors.blueAccent,
+                  ),
+                  onChanged: (txt){
+                    controller.tempAccountNumber.value = int.parse(txt) ;
+                  },
+                ),
+              ),SizedBox(height: 10,),
+              Container(
+                padding: EdgeInsets.fromLTRB(10,2,10,2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(color: Colors.white)
+                ),
+                child: TextField(
+                  style: TextStyle(color: Colors.white),
+
+                  decoration: InputDecoration(
+                    labelText: "Amount to transfer",
+                    labelStyle: TextStyle(color: Colors.blueAccent),
+                    fillColor: Colors.blueAccent,
+                    focusColor: Colors.blueAccent,
+                    hoverColor: Colors.blueAccent,
+                  ),
+                  onChanged: (txt){
+                    controller.tempAmountToSent.value = int.parse(txt) ;
+
+
+                  },
+                ),
+              ),
+              SizedBox(height: 10,),
+            ],
+          ),
+        ),
+        onConfirm: ()async{
+          await controller.makePayment();
+          Get.find<HomeController>().update1();
+
+        },
+        textConfirm: "Make Payment",
+        textCancel: "Cancel"
+
+
+    );
+
+
+  }
+
 }
