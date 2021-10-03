@@ -5,5 +5,5 @@
  * Time: 07:10<br/>
  */
 class Config{
-  static const API_URL = 'http://92ab-37-110-210-148.ngrok.io';
+  static const API_URL = 'http://abf3-37-110-210-148.ngrok.io';
 }
