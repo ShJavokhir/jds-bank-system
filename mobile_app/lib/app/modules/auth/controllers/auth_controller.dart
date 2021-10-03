@@ -32,6 +32,8 @@ class AuthController extends GetxController {
       box.write('cardNumber', aa.cardNumber);
       box.write('cardCvv', aa.cardCvv);
       box.write('cardExpiryDate', aa.cardExpiryDate);
+      Get.snackbar("Info", "Succesfully created", colorText: Colors.white, icon: Icon(Icons.done_outline, color: Colors.grey));
+      Get.toNamed(Routes.DASHBOARD);
     }catch(e){
       Get.snackbar("Xatolik", e.toString(), colorText: Colors.white, icon: Icon(Icons.error, color: Colors.red));
     }

@@ -7,6 +7,7 @@ import 'package:mobile_app/app/data/config.dart';
 import 'package:mobile_app/app/data/models/transfers_model.dart';
 import 'package:mobile_app/app/data/models/visa_card_model.dart';
 import 'package:mobile_app/app/modules/home/controllers/home_controller.dart';
+import 'package:mobile_app/app/modules/payments/controllers/payments_controller.dart';
 import 'package:mobile_app/app/widgets/card_money_transfer_card.dart';
 
 class TransfersController extends GetxController {
@@ -93,6 +94,7 @@ class TransfersController extends GetxController {
       var response = await dio.post(
           '${Config.API_URL}/transaction', data: formData);
       Navigator.of(Get.overlayContext!).pop();
+      updateData();
       Get.snackbar("Info", 'Succesfull transfer', colorText: Colors.white, icon: Icon(Icons.done_outline, color: Colors.white));
     } catch (e) {
       print(e);
@@ -125,6 +127,7 @@ class TransfersController extends GetxController {
         var response = await dio.post(
             '${Config.API_URL}/merchant/payForGoods', data: formData);
         Navigator.of(Get.overlayContext!).pop();
+        Get.find<PaymentsController>().updateData();
         Get.snackbar("Info", "Sucessfully paid", colorText: Colors.white, icon: Icon(Icons.done_outline, color: Colors.white,));
 
       } catch (e) {

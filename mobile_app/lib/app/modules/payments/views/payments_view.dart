@@ -27,34 +27,36 @@ class PaymentsView extends GetView<PaymentsController> {
               tileMode: TileMode.clamp),
         ),
         child: SafeArea(
-          child: ListView(
-          physics: AlwaysScrollableScrollPhysics(),
-              children: [
-                SizedBox(height: 50,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                        "Payments",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontFamily: "Poppins",
-                            fontWeight: FontWeight.w600
-                        )
-                    ),
-                    GestureDetector(onTap: (){
-                      controller.payForServiceForm();
-                    },
-                        child: Icon(Icons.add_box_rounded, color: Colors.white, size: 50,))
-                  ],
-                ),
-                SizedBox(height: 35),
-                ...controller.payments
+          child: Obx(
+            () => ListView(
+            physics: AlwaysScrollableScrollPhysics(),
+                children: [
+                  SizedBox(height: 50,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                          "Payments",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 30,
+                              fontFamily: "Poppins",
+                              fontWeight: FontWeight.w600
+                          )
+                      ),
+                      GestureDetector(onTap: (){
+                        controller.payForServiceForm();
+                      },
+                          child: Icon(Icons.add_box_rounded, color: Colors.white, size: 50,))
+                    ],
+                  ),
+                  SizedBox(height: 35),
+                  ...controller.payments
 
 
-              ]
+                ]
+            ),
           ),
         ),
       )

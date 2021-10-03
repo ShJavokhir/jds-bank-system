@@ -253,7 +253,7 @@ class AuthView extends GetView<AuthController> {
             onPressed: (){
               controller.isLoginState.value = true;
             },
-            child: Text("Or login excisting one",
+            child: Text("Or login exsisting one",
                 style: TextStyle(
                     color: AppColors.dark_color_1,
                     fontSize: 20,
