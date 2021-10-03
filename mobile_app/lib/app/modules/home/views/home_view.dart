@@ -132,9 +132,8 @@ class HomeView extends GetView<HomeController> {
                       textAlign: TextAlign.left,
                       style: TextStyle(
 
-                        letterSpacing: 3,
                           color: Colors.white,
-                          fontSize: 25,
+                          fontSize: 23,
                           fontFamily: "Poppins",
                           fontWeight: FontWeight.w800
                       )
