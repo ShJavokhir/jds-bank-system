@@ -12,23 +12,31 @@ import 'package:mobile_app/app/modules/transfers/views/payments_card_view.dart';
 class PaymentsController extends GetxController {
   List<Widget> payments = [
     PaymentsCardView(serviceName: "PUBG UC", amount: 100, icon: Icons.play_arrow),
-    PaymentsCardView(serviceName: "Mediabay", amount: 100, icon: Icons.tv_outlined),
-    PaymentsCardView(serviceName: "Arrows", amount: 100, icon: Icons.height),
-    PaymentsCardView(serviceName: "PUBG UC", amount: 100, icon: Icons.thumb_up),
-    PaymentsCardView(serviceName: "PUBG UC", amount: 100, icon: Icons.play_arrow),
-    PaymentsCardView(serviceName: "Mediabay", amount: 100, icon: Icons.tv_outlined),
-    PaymentsCardView(serviceName: "Arrows", amount: 100, icon: Icons.height),
-    PaymentsCardView(serviceName: "PUBG UC", amount: 100, icon: Icons.thumb_up),
-    PaymentsCardView(serviceName: "PUBG UC", amount: 100, icon: Icons.play_arrow),
-    PaymentsCardView(serviceName: "Mediabay", amount: 100, icon: Icons.tv_outlined),
-    PaymentsCardView(serviceName: "Arrows", amount: 100, icon: Icons.height),
-    PaymentsCardView(serviceName: "PUBG UC", amount: 100, icon: Icons.thumb_up),
-  ].obs;
+    ].obs;
+  var goodName = ''.obs;
+  List<String> goods = ['Atto'].obs;
 
   Future<List<GoodsModel>> fetchData()async{
 
     final dio = new Dio();
     final box = GetStorage();
+
+    try{
+      goods.clear();
+      var response = await dio.get('${Config.API_URL}/merchant/goods');
+      print('${Config.API_URL}/merchant/getPaysForGoods');
+      (response.data as List)
+          .map((x) => {
+            goods.add(x.toString()),
+      })
+          .toList();
+      goodName.value = 'Evos';
+      print(goods);
+
+    }catch (e){
+
+    }
+
     try{
       var formData = await{
         'cardNumber': box.read('cardNumber').toString(),
@@ -80,6 +88,7 @@ class PaymentsController extends GetxController {
   void increment() => count.value++;
 
   void payForServiceForm()async{
+
     TransfersController controller = Get.find();
 
     Get.defaultDialog(
@@ -89,77 +98,93 @@ class PaymentsController extends GetxController {
         titleStyle: TextStyle(color: Colors.white),
         middleTextStyle: TextStyle(color: Colors.white),
 
-        content: Container(
-          padding: EdgeInsets.all(5),
-          child: Column(
-
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(10,2,10,2),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.white)
-                ),
-                child: TextField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    labelText: "Payment name",
-                    labelStyle: TextStyle(color: Colors.blueAccent),
-                    fillColor: Colors.blueAccent,
-                    focusColor: Colors.blueAccent,
-                    hoverColor: Colors.blueAccent,
+        content: Obx(
+          () => Container(
+            padding: EdgeInsets.all(5),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                  padding: EdgeInsets.fromLTRB(10,2,10,2),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.white)
                   ),
-                  onChanged: (txt){
-                    controller.tempPaymentName.value = txt;
-                  },
+                  child:DropdownButton<String>(
+                    value: goodName.value,
+                    items: goods.map((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value, style: TextStyle(color: Colors.blueAccent),),
+                      );
+                    }).toList(),
+                    onChanged: (goodName1) {
+                      goodName.value = goodName1 ?? "";
+                      controller.tempPaymentName.value = goodName1 ?? "NULL";
+                      },
+                  )
+
+                  /*TextField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: "Payment name",
+                      labelStyle: TextStyle(color: Colors.blueAccent),
+                      fillColor: Colors.blueAccent,
+                      focusColor: Colors.blueAccent,
+                      hoverColor: Colors.blueAccent,
+                    ),
+                    onChanged: (txt){
+                      controller.tempPaymentName.value = txt;
+                    },
+                  ),*/
                 ),
-              ),
-              SizedBox(height: 10,),
-              Container(
-                padding: EdgeInsets.fromLTRB(10,2,10,2),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.white)
-                ),
-                child: TextField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    labelText: "Account number",
-                    labelStyle: TextStyle(color: Colors.blueAccent),
-                    fillColor: Colors.blueAccent,
-                    focusColor: Colors.blueAccent,
-                    hoverColor: Colors.blueAccent,
+                SizedBox(height: 10,),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10,2,10,2),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.white)
                   ),
-                  onChanged: (txt){
-                    controller.tempAccountNumber.value = int.parse(txt) ;
-                  },
-                ),
-              ),SizedBox(height: 10,),
-              Container(
-                padding: EdgeInsets.fromLTRB(10,2,10,2),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(color: Colors.white)
-                ),
-                child: TextField(
-                  style: TextStyle(color: Colors.white),
-
-                  decoration: InputDecoration(
-                    labelText: "Amount to transfer",
-                    labelStyle: TextStyle(color: Colors.blueAccent),
-                    fillColor: Colors.blueAccent,
-                    focusColor: Colors.blueAccent,
-                    hoverColor: Colors.blueAccent,
+                  child: TextField(
+                    style: TextStyle(color: Colors.white),
+                    decoration: InputDecoration(
+                      labelText: "Account number",
+                      labelStyle: TextStyle(color: Colors.blueAccent),
+                      fillColor: Colors.blueAccent,
+                      focusColor: Colors.blueAccent,
+                      hoverColor: Colors.blueAccent,
+                    ),
+                    onChanged: (txt){
+                      controller.tempAccountNumber.value = int.parse(txt) ;
+                    },
                   ),
-                  onChanged: (txt){
-                    controller.tempAmountToSent.value = int.parse(txt) ;
+                ),SizedBox(height: 10,),
+                Container(
+                  padding: EdgeInsets.fromLTRB(10,2,10,2),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(color: Colors.white)
+                  ),
+                  child: TextField(
+                    style: TextStyle(color: Colors.white),
+
+                    decoration: InputDecoration(
+                      labelText: "Amount to transfer",
+                      labelStyle: TextStyle(color: Colors.blueAccent),
+                      fillColor: Colors.blueAccent,
+                      focusColor: Colors.blueAccent,
+                      hoverColor: Colors.blueAccent,
+                    ),
+                    onChanged: (txt){
+                      controller.tempAmountToSent.value = int.parse(txt) ;
 
 
-                  },
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(height: 10,),
-            ],
+                SizedBox(height: 10,),
+              ],
+            ),
           ),
         ),
         onConfirm: ()async{

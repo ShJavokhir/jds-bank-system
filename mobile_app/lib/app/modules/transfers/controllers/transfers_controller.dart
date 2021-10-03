@@ -27,7 +27,7 @@ class TransfersController extends GetxController {
     MoneyTransferCard(cardNumber: "8600 **** **** 1293", amount: -100),
   ].obs;
 
-  var tempPaymentName = ''.obs;
+  var tempPaymentName = 'Evos'.obs;
   var tempAccountNumber = 0.obs;
   var tempReceiverCardNumber = ''.obs;
   var tempAmountToSent = 0.obs;
@@ -102,6 +102,7 @@ class TransfersController extends GetxController {
     }
   }
     Future<void> makePayment() async {
+      Response<T> response
       try {
         print('$tempReceiverCardNumber $tempAmountToSent');
         final dio = new Dio();

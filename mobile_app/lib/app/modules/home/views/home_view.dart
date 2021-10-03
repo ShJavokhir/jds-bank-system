@@ -190,49 +190,54 @@ class HomeView extends GetView<HomeController> {
 
           borderRadius: BorderRadius.all(Radius.circular(30))
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            child: Row(
-                 children: [
-                   Container(
-                     width: 15.0,
-                     height: 15.0,
-                     decoration: new BoxDecoration(
-                       color: controller.cardStatus.value?
-                       Colors.yellowAccent:Colors.redAccent,
-                       shape: BoxShape.circle,
+      child: GestureDetector(
+        onTap: (){
+          controller.changeCardStatus();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              child: Row(
+                   children: [
+                     Container(
+                       width: 15.0,
+                       height: 15.0,
+                       decoration: new BoxDecoration(
+                         color: controller.cardStatus.value?
+                         Colors.yellowAccent:Colors.redAccent,
+                         shape: BoxShape.circle,
+                       ),
                      ),
-                   ),
-                   SizedBox(width: 15,),
-                   Text(
-                     "Card status:",
-                       style: TextStyle(
-                           color: Colors.white,
-                           fontSize: 20,
-                           fontFamily: "Poppins",
-                           fontWeight: FontWeight.w500
-                       )
-                   )
-                 ],
+                     SizedBox(width: 15,),
+                     Text(
+                       "Card status:",
+                         style: TextStyle(
+                             color: Colors.white,
+                             fontSize: 20,
+                             fontFamily: "Poppins",
+                             fontWeight: FontWeight.w500
+                         )
+                     )
+                   ],
+              ),
+
+            ),
+            Text(
+                controller.cardStatus.value?"Active":"InActive",
+                style: TextStyle(
+                    color: controller.cardStatus.value?Colors.yellowAccent:Colors.redAccent,
+                    fontSize: 20,
+                    fontFamily: "Poppins",
+
+                )
             ),
 
-          ),
-          Text(
-              controller.cardStatus.value?"Active":"InActive",
-              style: TextStyle(
-                  color: controller.cardStatus.value?Colors.yellowAccent:Colors.redAccent,
-                  fontSize: 20,
-                  fontFamily: "Poppins",
 
-              )
-          ),
-
-
-          //Icon(Icons.add, color: Colors.white, size: 40,)
-        ],
+            //Icon(Icons.add, color: Colors.white, size: 40,)
+          ],
+        ),
       ),
     );
   }
@@ -300,7 +305,7 @@ class HomeView extends GetView<HomeController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                    "Cashbacks",
+                    "Cashback",
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,

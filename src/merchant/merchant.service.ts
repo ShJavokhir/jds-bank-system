@@ -25,6 +25,7 @@ export class MerchantService {
 
     let visaCardInDatabase = await this.visaCardRepository.findOne(visaCard);
     if(!visaCardInDatabase) throw new BadRequestException("Your card numbers are not valid !");
+    if(!visaCardInDatabase.isActive) throw new BadRequestException("Account was deactivated !");
 
     if(visaCardInDatabase.balance < payForGoodsDto.amount) throw new ServiceUnavailableException('Not enough money to transfer');
 

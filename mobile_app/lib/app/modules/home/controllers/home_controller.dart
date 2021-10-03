@@ -32,6 +32,18 @@ class HomeController extends GetxController {
     update1();
     super.onInit();
   }
+  Future<void> changeCardStatus() async{
+    final dio = new Dio();
+    final box = GetStorage();
+    var formData = await{
+      'cardNumber': box.read('cardNumber').toString(),
+      'cardCvv': box.read('cardCvv').toString(),
+      'cardExpiryDate': box.read('cardExpiryDate').toString(),
+    };
+    print('${Config.API_URL}/card/virtual/getCardInfo');
+    var response = await dio.post(cardStatus.value?'${Config.API_URL}/card/virtual/deactivate':'${Config.API_URL}/card/virtual/activate', data: formData);
+  update1();
+  }
 
   Future<void> update1()async{
     print('update home');
