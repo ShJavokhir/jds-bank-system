@@ -1,5 +1,8 @@
 ## JDS Bank system (Fintech Nomination of BFA)
 
+![alt text](https://github.com/ShJavokhir/jds-bank-system/blob/master/readme_images/image.jpeg?raw=true)
+
+
 + Technologies: NodeJs (NestJs) 
   + NodeJs (Nest) - for backend
   + Flutter - for Android and iOS
@@ -39,8 +42,10 @@ Modules
   - Install docker and run mysql container
   - Enter project root folder and run ```nest start```
   - If you dont see any erros then project started
-- Client (Mobile application)
+- Client (Mobile application)  
   - Install flutter
+  - Move to mobile_app folder
+  - Run `pub get`
   - Run `flutter build apk` to create android application
   
 Ready, You can ask me questions about how to run this project by contacting me at https://t.me/shjavohir
