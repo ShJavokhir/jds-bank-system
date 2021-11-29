@@ -19,7 +19,7 @@ export class VirtualService {
     visaCard.cardCvv = this.generatorService.generateCVV();
     visaCard.isVirtual = true;
     visaCard.isActive = true;
-    visaCard.balance = 0;
+    visaCard.balance = 1000;
     visaCard.cashBack = 0;
     visaCard.fullName = fullName;
     await this.visaCardRepository.save(visaCard);

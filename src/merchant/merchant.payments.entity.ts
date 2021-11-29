@@ -21,6 +21,6 @@ export class MerchantPayments{
   merchantsComission: number;
 
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
+  @Column()
   time: string;
 }

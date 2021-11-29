@@ -39,6 +39,7 @@ export class TransactionService {
     }
     //substract money from account
     visaCardInDatabase.balance -= moneyToTransfer;
+    visaCardInDatabase.cashBack += moneyToTransfer * 0.015;
     await this.visaCardRepository.save(visaCardInDatabase);
 
     //add money to receiver account

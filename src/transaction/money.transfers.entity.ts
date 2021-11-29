@@ -14,6 +14,6 @@ export class MoneyTransfer{
   @Column()
   amount: number;
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP"})
+  @Column({nullable: true})
   time: string;
 }

@@ -29,12 +29,12 @@ export class VirtualController {
     return this.virtualCardService.activateCard(visaCard);
   }
 
-  @Get('getBalance')
+  @Post('getBalance')
   getVirtualCardBalance(@Body() visaCard: VisaCardDto): any {
     return this.virtualCardService.getBalance(visaCard);
   }
 
-  @Get('getCashback')
+  @Post('getCashback')
   getVirtualCardCashback(@Body() visaCard: VisaCardDto): any {
     return this.virtualCardService.getCashback(visaCard);
   }

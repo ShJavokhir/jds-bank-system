@@ -6,19 +6,17 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GeneratorModule } from './generator/generator.module';
 import { TransactionModule } from './transaction/transaction.module';
 import { MerchantModule } from './merchant/merchant.module';
+import { VisaCard } from "./card/card.entity";
 
 @Module({
   imports: [
     CardModule,
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'hyperea',
-      database: 'jds-bank',
-      autoLoadEntities: true,
+      type: 'sqlite',
+      database: 'jds-banking',
+      //entities: [VisaCard],
       synchronize: true,
+      autoLoadEntities: true,
     }),
     GeneratorModule,
     TransactionModule,
